@@ -1,0 +1,1 @@
+Object/IRC.o: Source/IRC.cpp Include/IRC.hpp Include/Protocol.hpp

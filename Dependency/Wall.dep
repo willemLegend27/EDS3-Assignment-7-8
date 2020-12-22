@@ -1,0 +1,1 @@
+Object/Wall.o: Source/Wall.cpp Include/Wall.hpp

@@ -1,0 +1,2 @@
+Object/main.o: Source/main.cpp Include/UserInterface.hpp \
+ Include/Client.hpp Include/IRC.hpp Include/Protocol.hpp
