@@ -1,2 +1,2 @@
 Object/Client.o: Source/Client.cpp Include/Client.hpp Include/IRC.hpp \
- Include/Protocol.hpp
+ Include/Protocol.hpp Include/Json.hpp Include/MessageHandler.hpp

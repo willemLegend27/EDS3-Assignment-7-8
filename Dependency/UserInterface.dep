@@ -1,3 +1,3 @@
 Object/UserInterface.o: Source/UserInterface.cpp \
  Include/UserInterface.hpp Include/Client.hpp Include/IRC.hpp \
- Include/Protocol.hpp
+ Include/Protocol.hpp Include/Json.hpp Include/MessageHandler.hpp
