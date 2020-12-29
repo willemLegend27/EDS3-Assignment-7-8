@@ -1,2 +1,2 @@
 Object/IRC.o: Source/IRC.cpp Include/IRC.hpp Include/Protocol.hpp \
- Include/Json.hpp Include/MessageHandler.hpp
+ Include/Json.hpp Include/MessageHandler.hpp Include/Socket.hpp

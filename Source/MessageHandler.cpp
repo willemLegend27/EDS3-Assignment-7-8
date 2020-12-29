@@ -2,7 +2,7 @@
 
 MessageHandler::MessageHandler()
 {
-    socket = new Socket();
+    socket = new Socket((0, 0, 0, 0), 3333);
 }
 MessageHandler::~MessageHandler()
 {

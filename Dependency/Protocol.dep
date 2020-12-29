@@ -1,2 +1,2 @@
 Object/Protocol.o: Source/Protocol.cpp Include/Protocol.hpp \
- Include/Json.hpp Include/MessageHandler.hpp
+ Include/Json.hpp Include/MessageHandler.hpp Include/Socket.hpp
