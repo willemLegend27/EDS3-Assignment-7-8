@@ -8,11 +8,14 @@ class Client
 {
 private:
     IRC *irc;
-    
+    std::string activeChannel = "";
+
 public:
     Client();
     ~Client();
-    void Read(std::string userInput);
+    void SendMessage(std::string userInput);
+    std::string GetActiveChannel();
+    std::vector<std::string> GetChannelMessages();
 
 private:
 };

@@ -16,7 +16,7 @@ public:
     Socket(std::string IPAddress, uint16_t serverPort);
     ~Socket();
     std::string Read();
-    void WriteMessage(std::string /*protocolMessage*/);
+    void WriteMessage(std::string protocolMessage);
 
 private:
     int ConnectToServer();

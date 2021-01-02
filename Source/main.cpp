@@ -8,6 +8,7 @@ int main()
     while (true)
     {
         userInterface->GetChoice();
+        std::cout << "\n================================";
     }
     return 0;
 }

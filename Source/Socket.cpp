@@ -15,6 +15,7 @@ Socket::Socket(std::string IPAddress, uint16_t serverPort)
 }
 Socket::~Socket()
 {
+    DisconnectFromServer();
 }
 
 int Socket::ConnectToServer()

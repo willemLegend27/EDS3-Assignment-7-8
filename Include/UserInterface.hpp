@@ -19,6 +19,10 @@ private:
     void Print(std::string message);
     void ActOnChoice(int choice);
     bool IsNumber(const std::string &input);
+    void SendMessage();
+    void JoinChannel();
+    void LeaveChannel();
+    void GetChannelMessages();
 };
 
 #endif

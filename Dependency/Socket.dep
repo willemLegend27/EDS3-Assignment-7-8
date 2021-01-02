@@ -1,1 +1,2 @@
-Object/Socket.o: Source/Socket.cpp Include/Socket.hpp
+Object/Socket.o: Source/Socket.cpp Include/Socket.hpp \
+ Include/Exception.hpp
