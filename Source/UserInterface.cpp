@@ -69,16 +69,24 @@ void UserInterface::ActOnChoice(int choice)
     case 4:
         GetChannelMessages();
         break;
+    default:
+        std::cout << "\nInvalid input";
+        break;
     }
 }
 
 void UserInterface::SendMessage()
 {
-    std::string message;
-    std::cout << "\nInput message to send: ";
-    getline(std::cin, message);
-    std::cout << "\nSending message: " + message;
-    client->SendMessage("s{" + message + "}");
+    if (client->GetActiveChannel() != "")
+    {
+        std::string message;
+        std::cout << "\nInput message to send: ";
+        getline(std::cin, message);
+        std::cout << "\nSending message: " + message;
+        client->SendMessage("s{" + message + "}");
+        return;
+    }
+    std::cout << "\n No channel active, join a channel first";
 }
 
 void UserInterface::JoinChannel()

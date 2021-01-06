@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <vector>
+#include <sys/ioctl.h>
 
 Socket::Socket(std::string IPAddress, uint16_t serverPort)
 {
@@ -37,18 +38,38 @@ int Socket::DisconnectFromServer()
 
     return 0;
 }
-std::string Socket::Read()
+
+int Socket::GetAvailableData() const
 {
-    std::vector<char> buffer;
-    buffer.resize(BufferSize);
-    int bytes = recv(clientSocket, buffer.data(), buffer.size(), 0);
-    if (bytes != -1)
-    {
-        buffer.resize(bytes);
-        return std::string(buffer.begin(), buffer.end());
-    }
-    return "";
+    int bytesAvailable = 0;
+    ioctl(clientSocket, FIONREAD, &bytesAvailable);
+
+    return bytesAvailable;
 }
+
+bool Socket::ReadMessage(std::string *received)
+{
+    int bytesAvailable = GetAvailableData();
+
+    if (bytesAvailable == 0)
+    {
+        return false;
+    }
+
+    char *buffer = new char[bytesAvailable];
+    buffer[bytesAvailable] = '\0';
+    ssize_t n = read(clientSocket, buffer, bytesAvailable);
+    if (n == -1)
+    {
+        //throw ServerException("Error reading from socket\n", __FILE__, __LINE__);
+    }
+    *received = std::string(buffer);
+    std::cout << "received: " << *received;
+    delete[] buffer;
+
+    return true;
+}
+
 void Socket::WriteMessage(std::string protocolMessage)
 {
     size_t nmbrOfBytes = send(clientSocket, protocolMessage.c_str(), strlen(protocolMessage.c_str()), 0);
