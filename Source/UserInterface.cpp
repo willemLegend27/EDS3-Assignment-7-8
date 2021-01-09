@@ -3,11 +3,6 @@
 
 UserInterface::UserInterface()
 {
-    client = new Client();
-}
-
-UserInterface::~UserInterface()
-{
 }
 
 void UserInterface::Print(std::string message)
@@ -15,23 +10,24 @@ void UserInterface::Print(std::string message)
     std::cout << message;
 }
 
-void UserInterface::GetChoice()
+int UserInterface::GetChoice()
 {
     std::string input;
     std::cout << "\nPlease input choice: ";
-    getline(std::cin, input);
+    std::getline(std::cin, input);
     std::cout << "\nInput: " + input;
     if (IsNumber(input))
     {
-        ActOnChoice(std::stoi(input));
+        return std::stoi(input);
     }
+    return -1;
 }
 
 void UserInterface::PrintInterface()
 {
-    std::cout << "IRC Interface";
+    std::cout << "\nIRC Interface";
     std::cout << "\n================================";
-    std::cout << "\nClient is currently active on channel: " + client->GetActiveChannel();
+    std::cout << "\nClient is currently active on channel: ";
     std::cout << "\n================================";
     std::cout << "\n(1) Join channel";
     std::cout << "\n(2) Leave current channel";
@@ -53,70 +49,53 @@ bool UserInterface::IsNumber(const std::string &input)
     return true;
 }
 
-void UserInterface::ActOnChoice(int choice)
+std::string UserInterface::GetJoinChannel()
 {
-    switch (choice)
+    std::cout << "\n Input name of channel you want to join: ";
+    std::string channelName = "";
+    std::getline(std::cin, channelName);
+    std::cout << "\n Input name: " + channelName;
+    return channelName;
+}
+
+Events UserInterface::GetEvent()
+{
+    Events result = NO_EVENT_OCCURED;
+
+    HandlePollEvents();
+
+    if (events.size() > 0)
+    {
+        result = events[0];
+        events.erase(events.begin());
+    }
+
+    return result;
+}
+
+void UserInterface::HandlePollEvents()
+{
+    switch (GetChoice())
     {
     case 1:
-        JoinChannel();
+        PushEvent(Events::JOIN_CHANNEL);
         break;
     case 2:
-        LeaveChannel();
+        PushEvent(Events::LEAVE_CHANNEL);
         break;
     case 3:
-        SendMessage();
+        PushEvent(Events::SEND_MESSAGE);
         break;
     case 4:
-        GetChannelMessages();
+        PushEvent(Events::GET_CHANNEL_MESSAGES);
         break;
     default:
-        std::cout << "\nInvalid input";
         break;
     }
 }
 
-void UserInterface::SendMessage()
+void UserInterface::PushEvent(Events event)
 {
-    if (client->GetActiveChannel() != "")
-    {
-        std::string message;
-        std::cout << "\nInput message to send: ";
-        getline(std::cin, message);
-        std::cout << "\nSending message: " + message;
-        client->SendMessage("s{" + message + "}");
-        return;
-    }
-    std::cout << "\n No channel active, join a channel first";
-}
-
-void UserInterface::JoinChannel()
-{
-    std::string channelName;
-    std::cout << "\nName of channel to join: ";
-    getline(std::cin, channelName);
-    std::cout << "\nSending request to join channel: " + channelName;
-    client->SendMessage("j{" + channelName + "}");
-}
-
-void UserInterface::LeaveChannel()
-{
-    if (client->GetActiveChannel() != "")
-    {
-        std::cout << "\nSending request to leave channel: " + client->GetActiveChannel();
-        client->SendMessage("l{" + client->GetActiveChannel() + "}");
-        return;
-    }
-    std::cout << "\n No channel active, join a channel first";
-}
-
-void UserInterface::GetChannelMessages()
-{
-    if (client->GetActiveChannel() != "")
-    {
-
-        std::cout << "\nMessages of in current channel: " + client->GetActiveChannel();
-        std::vector<std::string> messages = client->GetChannelMessages();
-        return;
-    }
-    std::cout << "\n No channel active, join a channel first";
+    events.push_back(event);
+    //log.Debug("Event occurred, new list size: %s", events.size());
 }

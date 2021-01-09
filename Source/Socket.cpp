@@ -47,8 +47,25 @@ int Socket::GetAvailableData() const
     return bytesAvailable;
 }
 
+int Socket::ServerRWAvailability()
+{
+    fd_set rfds, wfds;
+    timeval timeoutVal;
+    timeoutVal.tv_usec = 0.0;
+    timeoutVal.tv_sec = 1;
+    FD_ZERO(&rfds);
+    FD_ZERO(&wfds);
+    FD_SET(clientSocket, &rfds);
+    FD_SET(clientSocket, &wfds);
+    return select(clientSocket + 1, &rfds, &wfds, NULL, &timeoutVal);
+}
+
 bool Socket::ReadMessage(std::string *received)
 {
+    if (!ServerRWAvailability())
+    {
+        return false;
+    }
     int bytesAvailable = GetAvailableData();
 
     if (bytesAvailable == 0)
@@ -61,7 +78,7 @@ bool Socket::ReadMessage(std::string *received)
     ssize_t n = read(clientSocket, buffer, bytesAvailable);
     if (n == -1)
     {
-        //throw ServerException("Error reading from socket\n", __FILE__, __LINE__);
+        throw Exception("Error reading from socket\n", __FILE__, __LINE__);
     }
     *received = std::string(buffer);
     std::cout << "received: " << *received;
@@ -70,12 +87,18 @@ bool Socket::ReadMessage(std::string *received)
     return true;
 }
 
-void Socket::WriteMessage(std::string protocolMessage)
+bool Socket::WriteMessage(std::string protocolMessage)
 {
+    if (!ServerRWAvailability())
+    {
+        return false;
+    }
     size_t nmbrOfBytes = send(clientSocket, protocolMessage.c_str(), strlen(protocolMessage.c_str()), 0);
 
     if (nmbrOfBytes != strlen(protocolMessage.c_str()))
     {
         throw Exception("Message was not send correctly", __FILE__, __LINE__);
+        return false;
     }
+    return true;
 }

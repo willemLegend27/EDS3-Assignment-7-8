@@ -15,12 +15,6 @@ MessageHandler::~MessageHandler()
 
 void MessageHandler::SendMessage(std::string protocolMessage)
 {
-    writeThread = std::thread(&MessageHandler::WriteMessage, this, protocolMessage);
-    return;
-}
-
-void MessageHandler::WriteMessage(std::string protocolMessage)
-{
     socket->WriteMessage(protocolMessage);
 }
 

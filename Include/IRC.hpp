@@ -1,23 +1,24 @@
 #ifndef IRC_HPP
 #define IRC_HPP
 
-#include "Protocol.hpp"
+#include "../Enums/Events.hpp"
+#include "UserInterface.hpp"
+#include "Client.hpp"
 #include <iostream>
 
 class IRC
 {
 private:
-    Protocol *protocol;
+    UserInterface &userInterface;
+    Client &client;
 
 public:
-    IRC();
-    ~IRC();
-    void SendMessage(std::string message);
-    void JoinChannel(std::string channelName);
-    void LeaveChannel();
-    void GetChannelMessages();
+    IRC(UserInterface &userInterface, Client &client);
+    virtual ~IRC() = default;
+    void Run();
 
 private:
+    void HandleEvent(Events event);
 };
 
 #endif

@@ -1,28 +1,28 @@
 #ifndef USERINTERFACE_HPP
 #define USERINTERFACE_HPP
 
-#include "Client.hpp"
+#include "../Enums/Events.hpp"
 #include <iostream>
+#include <vector>
 
 class UserInterface
 {
 private:
-    Client *client;
+    std::vector<Events> events;
 
 public:
     UserInterface();
-    ~UserInterface();
-    void GetChoice();
+    virtual ~UserInterface() = default;
     void PrintInterface();
+    Events GetEvent();
+    std::string GetJoinChannel();
 
 private:
+    int GetChoice();
     void Print(std::string message);
-    void ActOnChoice(int choice);
     bool IsNumber(const std::string &input);
-    void SendMessage();
-    void JoinChannel();
-    void LeaveChannel();
-    void GetChannelMessages();
+    void HandlePollEvents();
+    void PushEvent(Events event);
 };
 
 #endif

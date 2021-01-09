@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <arpa/inet.h>
+#include <ctime>
 
 class Socket
 {
@@ -15,12 +16,13 @@ public:
     Socket(std::string IPAddress, uint16_t serverPort);
     ~Socket();
     bool ReadMessage(std::string *received);
-    void WriteMessage(std::string protocolMessage);
+    bool WriteMessage(std::string protocolMessage);
 
 private:
     int ConnectToServer();
     int DisconnectFromServer();
     int GetAvailableData() const;
+    int ServerRWAvailability();
 };
 
 #endif

@@ -1,14 +1,17 @@
 #include "UserInterface.hpp"
+#include "Client.hpp"
+#include "IRC.hpp"
 
 int main()
 {
-    UserInterface *userInterface = new UserInterface();
 
-    userInterface->PrintInterface();
+    UserInterface userInterface = *new UserInterface();
+    Client client = *new Client();
+    IRC irc = *new IRC(userInterface, client);
+
     while (true)
     {
-        userInterface->GetChoice();
-        std::cout << "\n================================";
+        irc.Run();
     }
     return 0;
 }

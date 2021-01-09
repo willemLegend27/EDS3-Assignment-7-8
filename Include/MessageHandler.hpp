@@ -23,7 +23,6 @@ public:
 
 private:
     void ReadMessage();
-    void WriteMessage(std::string protocolMessage);
 };
 
 #endif

@@ -1,28 +1,34 @@
 #include "IRC.hpp"
 
-IRC::IRC()
-{
-    protocol = new Protocol();
-}
-
-IRC::~IRC()
+IRC::IRC(UserInterface &userInterface, Client &client) : userInterface(userInterface), client(client)
 {
 }
 
-void IRC::SendMessage(std::string message)
+void IRC::Run()
 {
-    protocol->SendMessage(message);
+    userInterface.PrintInterface();
+    Events event = userInterface.GetEvent();
+    HandleEvent(event);
 }
 
-void IRC::JoinChannel(std::string channelName)
+void IRC::HandleEvent(Events event)
 {
-    protocol->JoinChannel(channelName);
-}
-
-void IRC::LeaveChannel()
-{
-}
-
-void IRC::GetChannelMessages()
-{
+    std::string message = "";
+    switch (event)
+    {
+    case NO_EVENT_OCCURED:
+        break;
+    case JOIN_CHANNEL:
+        message = userInterface.GetJoinChannel();
+        client.JoinChannel(message);
+        break;
+    case LEAVE_CHANNEL:
+        break;
+    case SEND_MESSAGE:
+        break;
+    case GET_CHANNEL_MESSAGES:
+        break;
+    default:
+        break;
+    }
 }
