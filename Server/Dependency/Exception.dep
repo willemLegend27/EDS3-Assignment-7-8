@@ -1,0 +1,1 @@
+Object/Exception.o: Source/Exception.cpp Include/Exception.hpp

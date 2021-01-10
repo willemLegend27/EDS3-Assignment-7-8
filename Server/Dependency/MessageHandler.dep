@@ -1,0 +1,2 @@
+Object/MessageHandler.o: Source/MessageHandler.cpp \
+ Include/MessageHandler.hpp Include/Socket.hpp

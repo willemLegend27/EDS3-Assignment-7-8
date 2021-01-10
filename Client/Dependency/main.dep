@@ -1,0 +1,4 @@
+Object/main.o: Source/main.cpp Include/UserInterface.hpp \
+ Include/../Enums/Events.hpp Include/Client.hpp Include/Protocol.hpp \
+ Include/Json.hpp Include/MessageHandler.hpp Include/Socket.hpp \
+ Include/IRC.hpp Include/UserInterface.hpp Include/Client.hpp

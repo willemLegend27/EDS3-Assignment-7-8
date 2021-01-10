@@ -1,2 +1,0 @@
-Object/IRC.o: Source/IRC.cpp Include/IRC.hpp Include/../Enums/Events.hpp \
- Include/UserInterface.hpp Include/Client.hpp
