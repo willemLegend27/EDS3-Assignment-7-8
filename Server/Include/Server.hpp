@@ -9,6 +9,8 @@ class Server
 {
 private:
     MessageHandler &messageHandler;
+    bool readMessages = true;
+    std::thread readThread;
 
 public:
     Server(MessageHandler &messageHandler);

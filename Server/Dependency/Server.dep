@@ -1,2 +1,2 @@
 Object/Server.o: Source/Server.cpp Include/Server.hpp \
- Include/MessageHandler.hpp Include/Socket.hpp
+ Include/MessageHandler.hpp Include/Socket.hpp Include/Json.hpp

@@ -1,2 +1,0 @@
-obj/ServerApplication.o: src/ServerApplication.cpp \
- include/ServerApplication.hpp include/Server.hpp

@@ -31,5 +31,7 @@ std::vector<nlohmann::json> Protocol::GetChannelMessages()
 
 std::string Protocol::FormatToJson(std::string type, std::string value)
 {
-    return "{\"type\" : \"" + type + "\" , \"value\" : \"" + value + "\"}";
+    nlohmann::json json;
+    json["content"] = {{"type", type}, {"value", value}};
+    return json.dump();
 }
