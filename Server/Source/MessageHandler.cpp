@@ -28,44 +28,40 @@ void MessageHandler::StackIncommingMessage(nlohmann::json messageObject)
     std::cout << IncommingMessages.size();
 }
 
-void MessageHandler::Read()
+void MessageHandler::Read() noexcept
 {
-
     while (true)
     {
         fd_set readFds;
-        int nrSockets = socket.GetActivity(this->activity_s, this->activity_ms, readFds);
+        int nrSockets = this->socket.GetActivity(this->activity_s, this->activity_ms, readFds);
 
         if (nrSockets > 0)
         {
-            std::cout << "arriving here";
-            if (FD_ISSET(socket.GetSocketFD(), &readFds))
+            if (FD_ISSET(this->socket.GetSocketFD(), &readFds))
             {
-                std::cout << "to connect";
-                std::cout << socket.AcceptConnection();
-                std::cout << "Connected";
+                this->socket.AcceptConnection();
             }
             else
             {
-                for (auto clientFD : socket.GetConnections())
+                for (auto clientFD : this->socket.GetConnections())
                 {
                     if (FD_ISSET(clientFD, &readFds))
                     {
                         std::string response;
-                        bool success = socket.GetMessage(clientFD, response);
-                        std::cout << "Response: " << response;
+                        bool success = this->socket.GetMessage(clientFD, response);
+
                         if (!success || response == "disc")
                         {
-                            socket.Disconnect(clientFD);
+                            this->socket.Disconnect(clientFD);
                         }
                         else
                         {
-                            //HandleMessage(clientFD, response);
-                            std::cout << "Response: " << response;
+                            std::cout << "received: " << response << '\n';
                         }
                     }
                 }
             }
         }
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 }

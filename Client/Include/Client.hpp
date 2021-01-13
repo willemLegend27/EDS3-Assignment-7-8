@@ -7,13 +7,16 @@
 class Client
 {
 private:
-    Protocol* protocol;
+    Protocol *protocol;
     std::string activeChannel = "";
 
 public:
     Client();
     virtual ~Client() = default;
     bool JoinChannel(std::string channelName);
+    bool LeaveChannel();
+    bool SendMessage(std::string message);
+    std::string GetActiveChannel();
 
 private:
 };

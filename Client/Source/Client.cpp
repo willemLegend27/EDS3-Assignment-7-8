@@ -7,7 +7,32 @@ Client::Client()
 
 bool Client::JoinChannel(std::string channelName)
 {
-    std::cout << "\nSending joinchannel request with name: " << channelName << " to protocol";
-    protocol->JoinChannel(channelName);
-    return true;
+    if (protocol->JoinChannel(channelName))
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Client::LeaveChannel()
+{
+    if (protocol->LeaveChannel(activeChannel))
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Client::SendMessage(std::string message)
+{
+    if (protocol->SendMessage(message))
+    {
+        return true;
+    }
+    return false;
+}
+
+std::string Client::GetActiveChannel()
+{
+    return activeChannel;
 }

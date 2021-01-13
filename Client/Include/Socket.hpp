@@ -15,7 +15,7 @@ private:
 public:
     Socket(std::string IPAddress, uint16_t serverPort);
     ~Socket();
-    bool ReadMessage(std::string *received);
+    bool ReadMessage(std::string &received);
     bool WriteMessage(std::string protocolMessage);
 
 private:

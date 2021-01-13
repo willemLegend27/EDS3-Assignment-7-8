@@ -7,18 +7,32 @@ Protocol::Protocol()
 Protocol::~Protocol()
 {
 }
-void Protocol::SendMessage(std::string message)
+
+bool Protocol::JoinChannel(std::string channelName)
 {
-    messageHandler->SendMessage(FormatToJson("message", message));
+    if (messageHandler->SendMessage(FormatToJson("join_channel", channelName)))
+    {
+        return true;
+    }
+    return false;
 }
 
-void Protocol::JoinChannel(std::string channelName)
+bool Protocol::LeaveChannel(std::string channelName)
 {
-    messageHandler->SendMessage(FormatToJson("join channel", channelName));
+    if (messageHandler->SendMessage(FormatToJson("leave_channel", channelName)))
+    {
+        return true;
+    }
+    return false;
 }
 
-void Protocol::LeaveChannel()
+bool Protocol::SendMessage(std::string message)
 {
+    if (messageHandler->SendMessage(FormatToJson("message", message)))
+    {
+        return true;
+    }
+    return false;
 }
 
 std::vector<nlohmann::json> Protocol::GetChannelMessages()

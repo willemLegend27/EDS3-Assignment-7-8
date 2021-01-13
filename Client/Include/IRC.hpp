@@ -19,6 +19,9 @@ public:
 
 private:
     void HandleEvent(Events event);
+    void JoinChannel();
+    void LeaveChannel();
+    void SendMessage();
 };
 
 #endif

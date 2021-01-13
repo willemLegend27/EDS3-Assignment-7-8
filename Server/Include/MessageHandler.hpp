@@ -18,7 +18,7 @@ private:
 public:
     MessageHandler(Socket &socket);
     ~MessageHandler();
-    void Read();
+    void Read() noexcept; 
 
 private:
     void CombineWithClientFD(std::string currentMessage /*int clientFD*/);

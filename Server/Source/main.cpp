@@ -7,4 +7,5 @@ int main()
     MessageHandler messageHandler(socket);
     Server server(messageHandler);
     server.ReadSocketActivity();
+    //messageHandler.Run();
 }

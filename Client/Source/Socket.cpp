@@ -60,7 +60,7 @@ int Socket::ServerRWAvailability()
     return select(clientSocket + 1, &rfds, &wfds, NULL, &timeoutVal);
 }
 
-bool Socket::ReadMessage(std::string *received)
+bool Socket::ReadMessage(std::string &received)
 {
     if (!ServerRWAvailability())
     {
@@ -80,8 +80,8 @@ bool Socket::ReadMessage(std::string *received)
     {
         throw Exception("Error reading from socket\n", __FILE__, __LINE__);
     }
-    *received = std::string(buffer);
-    std::cout << "received: " << *received;
+    received = std::string(buffer);
+    std::cout << "received: " << received;
     delete[] buffer;
 
     return true;

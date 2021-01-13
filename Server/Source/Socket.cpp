@@ -7,6 +7,7 @@
 #include <cstring>
 #include <sstream>
 #include <algorithm>
+#include <iostream>
 
 Socket::Socket(int portNo, int maxConnections) : portNo(portNo), maxConnections(maxConnections)
 {
@@ -72,7 +73,6 @@ int Socket::AcceptConnection()
     {
         throw Exception("Error on accept", __FILE__, __LINE__);
     }
-
     connections.push_back(clientFD);
 
     return clientFD;
@@ -119,7 +119,7 @@ void Socket::SendMessage(int clientFD, const std::string &message) const
 bool Socket::GetMessage(int clientFD, std::string &received) const
 {
     int bytesAvailable = GetAvailableData(clientFD);
-
+    //std::cout << "\nReceiving: " << bytesAvailable << "bytes";
     if (bytesAvailable == 0)
     {
         return false;

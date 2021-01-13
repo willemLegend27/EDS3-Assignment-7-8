@@ -14,12 +14,13 @@ public:
     UserInterface();
     virtual ~UserInterface() = default;
     void PrintInterface();
+    void Print(std::string message);
     Events GetEvent();
     std::string GetJoinChannel();
+    std::string GetMessageToSend();
 
 private:
     int GetChoice();
-    void Print(std::string message);
     bool IsNumber(const std::string &input);
     void HandlePollEvents();
     void PushEvent(Events event);

@@ -58,6 +58,15 @@ std::string UserInterface::GetJoinChannel()
     return channelName;
 }
 
+std::string UserInterface::GetMessageToSend()
+{
+    std::cout << "\n Input message to send: ";
+    std::string message = "";
+    std::getline(std::cin, message);
+    std::cout << "\n Input message: " + message;
+    return message;
+}
+
 Events UserInterface::GetEvent()
 {
     Events result = NO_EVENT_OCCURED;
@@ -97,5 +106,4 @@ void UserInterface::HandlePollEvents()
 void UserInterface::PushEvent(Events event)
 {
     events.push_back(event);
-    //log.Debug("Event occurred, new list size: %s", events.size());
 }

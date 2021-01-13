@@ -17,7 +17,7 @@ private:
 public:
     MessageHandler();
     ~MessageHandler();
-    void SendMessage(std::string protocolMessage);
+    bool SendMessage(std::string protocolMessage);
     std::vector<std::string> GetChannelMessages();
 
 private:

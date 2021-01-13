@@ -13,9 +13,9 @@ private:
 public:
     Protocol();
     ~Protocol();
-    void SendMessage(std::string message);
-    void JoinChannel(std::string channelName);
-    void LeaveChannel();
+    bool SendMessage(std::string message);
+    bool JoinChannel(std::string channelName);
+    bool LeaveChannel(std::string channelName);
     std::vector<nlohmann::json> GetChannelMessages();
 
 private:

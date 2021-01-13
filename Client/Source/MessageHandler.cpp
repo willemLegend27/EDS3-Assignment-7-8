@@ -13,9 +13,13 @@ MessageHandler::~MessageHandler()
 {
 }
 
-void MessageHandler::SendMessage(std::string protocolMessage)
+bool MessageHandler::SendMessage(std::string protocolMessage)
 {
-    socket->WriteMessage(protocolMessage);
+    if (socket->WriteMessage(protocolMessage))
+    {
+        return true;
+    }
+    return false;
 }
 
 void MessageHandler::ReadMessage()
@@ -25,7 +29,7 @@ void MessageHandler::ReadMessage()
         {
             std::lock_guard<std::mutex> guard(std::mutex mutex);
             std::string incoming;
-            if (socket->ReadMessage(&incoming))
+            if (socket->ReadMessage(incoming))
             {
                 ChannelMessages.push_back(incoming);
             }
