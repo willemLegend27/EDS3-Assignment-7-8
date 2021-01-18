@@ -2,6 +2,7 @@
 #define SERVER_HPP
 
 #include "MessageHandler.hpp"
+#include "Json.hpp"
 #include <vector>
 #include <thread>
 
@@ -16,7 +17,6 @@ public:
     Server(MessageHandler &messageHandler);
     ~Server();
     void ReadSocketActivity();
-    
 
 private:
 };

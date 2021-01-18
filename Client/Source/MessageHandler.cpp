@@ -34,12 +34,6 @@ void MessageHandler::ReadMessage()
                 ChannelMessages.push_back(incoming);
             }
         }
-
-        for (std::vector<std::string>::iterator t = ChannelMessages.begin(); t != ChannelMessages.end(); ++t)
-        {
-            std::cout << "\n test getting content of ChannelMessages: " << *t;
-        }
-
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 }

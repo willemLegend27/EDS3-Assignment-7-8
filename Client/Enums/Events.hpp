@@ -12,6 +12,7 @@ enum Events
 
 enum GameEvents
 {
+    NO_EVENT_OCCURED,
     SETUP_GAME,
     START_GAME,
     GAME_OVER,

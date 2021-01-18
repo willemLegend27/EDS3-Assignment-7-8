@@ -1,14 +1,16 @@
 #ifndef MINIGAME_HPP
 #define MINIGAME_HPP
 
-#include "Enums/Events.hpp"
+#include "Events.hpp"
 #include "Player.hpp"
+#include "States.hpp"
 
 class Minigame
 {
 private:
     //std::vector<> Leaderboard;
     Player player;
+    GameStates state;
 public:
     Minigame();
     ~Minigame();
