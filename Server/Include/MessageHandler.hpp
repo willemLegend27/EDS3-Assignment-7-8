@@ -18,7 +18,8 @@ private:
 public:
     MessageHandler(Socket &socket);
     ~MessageHandler();
-    void Read() noexcept;
+    void Read();
+    std::vector<nlohmann::json> GetIncommingMessages();
 
 private:
     nlohmann::json CombineWithID(std::string currentMessage, int id);

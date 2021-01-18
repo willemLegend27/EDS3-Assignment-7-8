@@ -14,5 +14,6 @@ void Server::ReadSocketActivity()
     readThread = std::thread(&MessageHandler::Read, this->messageHandler);
     while (true)
     {
+        
     }
 }

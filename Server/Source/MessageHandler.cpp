@@ -18,18 +18,21 @@ nlohmann::json MessageHandler::CombineWithID(std::string currentMessage, int id)
     std::cout << currentJson["type"].get<std::string>();
     nlohmann::json json;
     json = {{"clientNr", id}, {"type", currentJson["type"].get<std::string>()}, {"value", currentJson["value"].get<std::string>()}};
-
-    //nlohmann::json json;
-    //json["content"] = {{"type", type}, {"value", value}};
     return json.dump();
 }
 void MessageHandler::StackIncommingMessage(nlohmann::json messageObject)
 {
+
     IncommingMessages.push_back(messageObject);
-    std::cout << IncommingMessages.size();
 }
 
-void MessageHandler::Read() noexcept
+std::vector<nlohmann::json> MessageHandler::GetIncommingMessages()
+{
+
+    return IncommingMessages;
+}
+
+void MessageHandler::Read()
 {
     while (true)
     {

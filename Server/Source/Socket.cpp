@@ -119,7 +119,6 @@ void Socket::SendMessage(int clientFD, const std::string &message) const
 bool Socket::GetMessage(int clientFD, std::string &received) const
 {
     int bytesAvailable = GetAvailableData(clientFD);
-    //std::cout << "\nReceiving: " << bytesAvailable << "bytes";
     if (bytesAvailable == 0)
     {
         return false;
