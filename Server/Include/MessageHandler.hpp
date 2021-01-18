@@ -18,10 +18,10 @@ private:
 public:
     MessageHandler(Socket &socket);
     ~MessageHandler();
-    void Read() noexcept; 
+    void Read() noexcept;
 
 private:
-    void CombineWithClientFD(std::string currentMessage /*int clientFD*/);
+    nlohmann::json CombineWithID(std::string currentMessage, int id);
     void StackIncommingMessage(nlohmann::json messageObject);
 };
 

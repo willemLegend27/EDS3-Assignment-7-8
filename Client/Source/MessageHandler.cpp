@@ -1,5 +1,4 @@
 #include "MessageHandler.hpp"
-#include <mutex>
 
 MessageHandler::MessageHandler()
 {
@@ -26,14 +25,16 @@ void MessageHandler::ReadMessage()
 {
     while (read)
     {
+
+        std::string incoming;
+        if (socket->ReadMessage(incoming))
         {
-            std::lock_guard<std::mutex> guard(std::mutex mutex);
-            std::string incoming;
-            if (socket->ReadMessage(incoming))
             {
+                std::lock_guard<std::mutex> guard(mutex);
                 ChannelMessages.push_back(incoming);
             }
         }
+
         for (std::vector<std::string>::iterator t = ChannelMessages.begin(); t != ChannelMessages.end(); ++t)
         {
             std::cout << "\n test getting content of ChannelMessages: " << *t;
@@ -45,5 +46,8 @@ void MessageHandler::ReadMessage()
 
 std::vector<std::string> MessageHandler::GetChannelMessages()
 {
-    return ChannelMessages;
+    {
+        std::lock_guard<std::mutex> guard(mutex);
+        return ChannelMessages;
+    }
 }

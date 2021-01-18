@@ -11,16 +11,17 @@ MessageHandler::~MessageHandler()
 {
 }
 
-void MessageHandler::CombineWithClientFD(std::string currentMessage /*int clientFD*/)
+nlohmann::json MessageHandler::CombineWithID(std::string currentMessage, int id)
 {
+
     nlohmann::json currentJson = nlohmann::json::parse(currentMessage);
     std::cout << currentJson["type"].get<std::string>();
-    //nlohmann::json json;
-    //json["content"] = {{"clientNr", clientFD}, {"type", currentJson["type"].get<std::string>()}, {"value", currentJson["value"].get<std::string>()}};
+    nlohmann::json json;
+    json = {{"clientNr", id}, {"type", currentJson["type"].get<std::string>()}, {"value", currentJson["value"].get<std::string>()}};
 
     //nlohmann::json json;
     //json["content"] = {{"type", type}, {"value", value}};
-    //return json.dump();
+    return json.dump();
 }
 void MessageHandler::StackIncommingMessage(nlohmann::json messageObject)
 {
@@ -57,6 +58,7 @@ void MessageHandler::Read() noexcept
                         else
                         {
                             std::cout << "received: " << response << '\n';
+                            StackIncommingMessage(CombineWithID(response, clientFD));
                         }
                     }
                 }

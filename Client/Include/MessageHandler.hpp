@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <thread>
+#include <mutex>
 
 class MessageHandler
 {
@@ -12,6 +13,7 @@ private:
     Socket *socket;
     std::vector<std::string> ChannelMessages;
     std::thread readThread;
+    std::mutex mutex;
     bool read = true;
 
 public:
