@@ -10,4 +10,13 @@ enum Events
     GET_CHANNEL_MESSAGES
 };
 
+enum GameEvents
+{
+    SETUP_GAME,
+    START_GAME,
+    GAME_OVER,
+    CHECK_LEADERBOARD,
+    SHUTDOWN
+};
+
 #endif
