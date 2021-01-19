@@ -6,6 +6,6 @@ enum GameStates
     SETUP,
     PLAYING,
     LEADERBOARD
-}
+};
 
 #endif

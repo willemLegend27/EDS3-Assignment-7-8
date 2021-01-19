@@ -14,10 +14,14 @@ void Server::ReadSocketActivity()
     readThread = std::thread(&MessageHandler::Read, this->messageHandler);
     while (true)
     {
-        nlohmann::json message = messageHandler.GetIncommingMessages().at(0);
-        if (message)
+        int incommingMessagesSize = messageHandler.GetIncommingMessages().size();
+        if (incommingMessagesSize > 0)
         {
+            nlohmann::json message = messageHandler.GetIncommingMessages().at(0);
+            std::cout << "\n"
+                      << incommingMessagesSize;
             std::string type = message["type"].get<std::string>();
+            std::cout << type;
             if (type == "join_channel")
             {
             }

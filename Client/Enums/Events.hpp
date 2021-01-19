@@ -3,21 +3,10 @@
 
 enum Events
 {
-    NO_EVENT_OCCURED,
     JOIN_CHANNEL,
     LEAVE_CHANNEL,
     SEND_MESSAGE,
     GET_CHANNEL_MESSAGES
-};
-
-enum GameEvents
-{
-    NO_EVENT_OCCURED,
-    SETUP_GAME,
-    START_GAME,
-    GAME_OVER,
-    CHECK_LEADERBOARD,
-    SHUTDOWN
 };
 
 #endif

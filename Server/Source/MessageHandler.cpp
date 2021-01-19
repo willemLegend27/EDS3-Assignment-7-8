@@ -17,7 +17,7 @@ nlohmann::json MessageHandler::CombineWithID(std::string currentMessage, int id)
     nlohmann::json currentJson = nlohmann::json::parse(currentMessage);
     nlohmann::json newJson;
     newJson = {{"clientNr", id}, {"type", currentJson["type"].get<std::string>()}, {"value", currentJson["value"].get<std::string>()}};
-    return json.dump();
+    return newJson.dump();
 }
 
 void MessageHandler::StackIncommingMessage(nlohmann::json messageObject)

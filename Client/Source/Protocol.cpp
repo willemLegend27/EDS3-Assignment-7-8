@@ -35,12 +35,17 @@ bool Protocol::SendMessage(std::string message)
     return false;
 }
 
-std::vector<nlohmann::json> Protocol::GetChannelMessages()
+std::vector<std::string> Protocol::GetChannelMessages()
 {
-    //std::vector<std::string> *messages = messageHandler->GetChannelMessages();
+    std::vector<std::string> Messages = messageHandler->GetChannelMessages();
+    std::vector<nlohmann::json> JsonMessages;
+    for (std::string message : Messages)
+    {
+        JsonMessages.push_back(nlohmann::json::parse(message));
+    }
     std::cout << "Needs to convert all strings to json then pass to irc";
-    std::vector<nlohmann::json> a;
-    return a;
+    std::vector<std::string> messageStrings;
+    return messageStrings;
 }
 
 std::string Protocol::FormatToJson(std::string type, std::string value)

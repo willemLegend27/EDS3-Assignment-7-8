@@ -16,8 +16,6 @@ void IRC::HandleEvent(Events event)
 
     switch (event)
     {
-    case NO_EVENT_OCCURED:
-        break;
     case JOIN_CHANNEL:
         JoinChannel();
         break;

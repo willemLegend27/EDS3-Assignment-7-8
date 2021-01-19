@@ -69,7 +69,7 @@ std::string UserInterface::GetMessageToSend()
 
 Events UserInterface::GetEvent()
 {
-    Events result = NO_EVENT_OCCURED;
+    Events result;
 
     HandlePollEvents();
 

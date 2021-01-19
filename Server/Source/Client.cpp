@@ -1,5 +1,5 @@
 #include "Client.hpp"
 
-Client::Client(std::string name, int clientFD) : name(name), clientFD(clientFD)
+Client::Client(int clientFD) : clientFD(clientFD)
 {
 }

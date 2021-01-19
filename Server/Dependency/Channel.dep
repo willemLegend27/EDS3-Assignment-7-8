@@ -1,0 +1,1 @@
+Object/Channel.o: Source/Channel.cpp Include/Channel.hpp

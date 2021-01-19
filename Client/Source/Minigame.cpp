@@ -1,7 +1,8 @@
 #include "Minigame.hpp"
 
 Minigame::Minigame()
-{}
+{
+}
 
 void Minigame::HandleEvent(GameEvents event)
 {
@@ -21,20 +22,55 @@ void Minigame::HandleEvent(GameEvents event)
     }
 }
 
-GameStates HandleSetupState(GameEvents event)
+GameStates Minigame::HandleSetupState(GameEvents event)
 {
     GameStates currentState = GameStates::SETUP;
+
+    switch (event)
+    //entry/ ui.printGameMenu(); minigame.getPlayerData(ui.getPlayer)
+    //events: SHUTDOWN, START_GAME, CHECK_LEADERBOARD
+    {
+    case GameEvents::SETUP_GAME:
+        break;
+    case GameEvents::SHUTDOWN:
+        break;
+    case GameEvents::CHECK_LEADERBOARD:
+        break;
+    default:
+        break;
+    }
+
     return currentState;
 }
 
-GameStates HandlePlayingState(GameEvents event)
+GameStates Minigame::HandlePlayingState(GameEvents event)
 {
     GameStates currentState = GameStates::SETUP;
+
+    switch (event)
+    //entry/ minigame.startGame(Player)
+    //internal MoveRight, MoveLeft
+    //events: SETUP_GAME, GAME_OVER
+    {
+    default:
+        break;
+    }
+
     return currentState;
 }
 
-GameStates HandleLeaderboardState(GameEvents event)
+GameStates Minigame::HandleLeaderboardState(GameEvents event)
 {
     GameStates currentState = GameStates::SETUP;
+
+    switch (event)
+    //entry/ minigame.LoadLeaderboard
+    //exit/ ui.ClearScreen()
+    //events: SETUP_GAME
+    {
+    default:
+        break;
+    }
+
     return currentState;
 }

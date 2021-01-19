@@ -16,7 +16,7 @@ public:
     bool SendMessage(std::string message);
     bool JoinChannel(std::string channelName);
     bool LeaveChannel(std::string channelName);
-    std::vector<nlohmann::json> GetChannelMessages();
+    std::vector<std::string> GetChannelMessages();
 
 private:
     std::string FormatToJson(std::string type, std::string value);

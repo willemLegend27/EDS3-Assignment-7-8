@@ -14,6 +14,7 @@ private:
     const time_t activity_s = 0;
     const suseconds_t activity_ms = 200;
     std::vector<nlohmann::json> IncommingMessages;
+    
 
 public:
     MessageHandler(Socket &socket);
