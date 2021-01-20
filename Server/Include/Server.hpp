@@ -6,14 +6,14 @@
 #include "Channel.hpp"
 #include "Client.hpp"
 #include <vector>
-#include <thread>
+//#include <thread>
 
 class Server
 {
 private:
     MessageHandler &messageHandler;
     bool readMessages = true;
-    std::thread readThread;
+    //std::thread readThread;
     std::vector<Channel> Channels;
     std::vector<Client> Clients;
 

@@ -1,6 +1,7 @@
 #include "Server.hpp"
 
 #include <iostream>
+#include <string.
 
 Server::Server(MessageHandler &messageHandler) : messageHandler(messageHandler)
 {
@@ -11,17 +12,19 @@ Server::~Server()
 
 void Server::ReadSocketActivity()
 {
-    readThread = std::thread(&MessageHandler::Read, this->messageHandler);
+    //readThread = std::thread(&MessageHandler::Read, this->messageHandler);
+    nlohmann::
+    /*
     while (true)
     {
         int incommingMessagesSize = messageHandler.GetIncommingMessages().size();
         if (incommingMessagesSize > 0)
         {
-            nlohmann::json message = messageHandler.GetIncommingMessages().at(0);
-            std::cout << "\n"
-                      << incommingMessagesSize;
-            std::string type = message["type"].get<std::string>();
-            std::cout << type;
+
+            nlohmann::json message = messageHandler.GetIncommingMessages().front();
+
+            std::string type = message;
+
             if (type == "join_channel")
             {
             }
@@ -33,4 +36,5 @@ void Server::ReadSocketActivity()
             }
         }
     }
+    */
 }

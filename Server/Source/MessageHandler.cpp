@@ -1,10 +1,10 @@
 #include "MessageHandler.hpp"
-#include <thread>
 
 #include <iostream>
 
 MessageHandler::MessageHandler(Socket &socket) : socket(socket)
 {
+    //readThread = std::thread(&MessageHandler::Read, this);
 }
 
 MessageHandler::~MessageHandler()
@@ -22,12 +22,26 @@ nlohmann::json MessageHandler::CombineWithID(std::string currentMessage, int id)
 
 void MessageHandler::StackIncommingMessage(nlohmann::json messageObject)
 {
-    IncommingMessages.push_back(messageObject);
+    {
+        std::lock_guard<std::mutex> guard(mutex);
+        IncommingMessages.push_back(messageObject);
+    }
+
+    std::cout << IncommingMessages.at(0);
+    nlohmann::json obj = IncommingMessages.at(0);
+    nlohmann::json newOjb = obj["type"];
+    if (!newOjb.is_null())
+    {
+        std::string value = newOjb["type"].get<std::string>();
+    }
 }
 
 std::vector<nlohmann::json> MessageHandler::GetIncommingMessages()
 {
-    return IncommingMessages;
+    {
+        std::lock_guard<std::mutex> guard(mutex);
+        return IncommingMessages;
+    }
 }
 
 void MessageHandler::Read()
@@ -58,7 +72,6 @@ void MessageHandler::Read()
                         }
                         else
                         {
-                            std::cout << "received: " << response << '\n';
                             StackIncommingMessage(CombineWithID(response, clientFD));
                         }
                     }
