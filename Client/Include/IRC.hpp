@@ -10,10 +10,13 @@ class IRC
 {
 private:
     UserInterface &userInterface;
-    Client &client;
+    Client *client;
+    const std::string serverIP;
+    const int serverPort;
+    bool run = true;
 
 public:
-    IRC(UserInterface &userInterface, Client &client);
+    IRC(UserInterface &userInterface, const std::string serverIP, const int serverPort);
     virtual ~IRC() = default;
     void Run();
 

@@ -6,14 +6,12 @@
 #include "Channel.hpp"
 #include "Client.hpp"
 #include <vector>
-//#include <thread>
 
 class Server
 {
 private:
     MessageHandler &messageHandler;
     bool readMessages = true;
-    //std::thread readThread;
     std::vector<Channel> Channels;
     std::vector<Client> Clients;
 
@@ -23,6 +21,11 @@ public:
     void ReadSocketActivity();
 
 private:
+    nlohmann::json MessageToJson();
+    Client *FindClient(int clientID);
+    Channel *FindChannel(std::string channelName);
+    void ReadJoinChannel(int clientID);
+    void RemoveMessage();
 };
 
 #endif

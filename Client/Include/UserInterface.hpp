@@ -13,6 +13,7 @@ private:
 public:
     UserInterface();
     virtual ~UserInterface() = default;
+    void AskConnection(std::string *inputIP, std::string *inputPort);
     void PrintInterface();
     void Print(std::string message);
     Events GetEvent();
@@ -21,9 +22,11 @@ public:
 
 private:
     int GetChoice();
-    bool IsNumber(const std::string &input);
     void HandlePollEvents();
     void PushEvent(Events event);
+    void GetInputServerIP(std::string *serverIP);
+    void GetInputServerPort(std::string *serverPort);
+    bool IsNumber(const std::string &input);
 };
 
 #endif

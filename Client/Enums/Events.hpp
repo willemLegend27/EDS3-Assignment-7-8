@@ -6,7 +6,8 @@ enum Events
     JOIN_CHANNEL,
     LEAVE_CHANNEL,
     SEND_MESSAGE,
-    GET_CHANNEL_MESSAGES
+    GET_CHANNEL_MESSAGES,
+    Quit
 };
 
 #endif

@@ -35,7 +35,7 @@ Socket::Socket(int portNo, int maxConnections) : portNo(portNo), maxConnections(
 
 Socket::~Socket()
 {
-    for (auto clientFD : connections)
+    for (auto clientFD : Connections)
     {
         Disconnect(clientFD);
     }
@@ -59,7 +59,7 @@ int Socket::GetMaxConnections() const noexcept
 
 std::vector<int> Socket::GetConnections() const noexcept
 {
-    return connections;
+    return Connections;
 }
 
 int Socket::AcceptConnection()
@@ -73,14 +73,14 @@ int Socket::AcceptConnection()
     {
         throw Exception("Error on accept", __FILE__, __LINE__);
     }
-    connections.push_back(clientFD);
+    Connections.push_back(clientFD);
 
     return clientFD;
 }
 
 void Socket::Disconnect(int clientFD)
 {
-    connections.erase(std::remove(connections.begin(), connections.end(), clientFD));
+    Connections.erase(std::remove(Connections.begin(), Connections.end(), clientFD));
 
     close(clientFD);
 }
@@ -159,7 +159,7 @@ int Socket::GetActivity(time_t seconds, suseconds_t microSeconds, fd_set &readFd
     FD_ZERO(&readFds);
     FD_SET(socketFD, &readFds);
 
-    for (auto clientFD : connections)
+    for (auto clientFD : Connections)
     {
         FD_SET(clientFD, &readFds);
     }

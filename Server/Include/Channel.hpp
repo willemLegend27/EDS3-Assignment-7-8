@@ -12,6 +12,7 @@ private:
 public:
     Channel();
     ~Channel() = default;
+    std::string GetChannelName();
 
 private:
 };

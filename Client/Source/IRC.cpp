@@ -1,7 +1,12 @@
 #include "IRC.hpp"
 
-IRC::IRC(UserInterface &userInterface, Client &client) : userInterface(userInterface), client(client)
+IRC::IRC(UserInterface &userInterface, const std::string serverIP, const int serverPort) : userInterface(userInterface), serverIP(serverIP), serverPort(serverPort)
 {
+    client = new Client(serverIP, serverPort);
+    while (run)
+    {
+        Run();
+    }
 }
 
 void IRC::Run()
@@ -27,6 +32,10 @@ void IRC::HandleEvent(Events event)
         break;
     case GET_CHANNEL_MESSAGES:
         break;
+    case Quit:
+        std::cout << "Quitting app....";
+        run = false;
+        break;
     default:
         break;
     }
@@ -35,32 +44,32 @@ void IRC::HandleEvent(Events event)
 void IRC::JoinChannel()
 {
     std::string message = userInterface.GetJoinChannel();
-    if (client.JoinChannel(message))
+    if (client->JoinChannel(message))
     {
         userInterface.Print(std::string("\nRequested server to join channel: " + message));
     }
 }
 void IRC::LeaveChannel()
 {
-    if (client.GetActiveChannel() == "")
+    if (client->GetActiveChannel() == "")
     {
         userInterface.Print("\nNo channel active, join one first");
         return;
     }
-    if (client.LeaveChannel())
+    if (client->LeaveChannel())
     {
         userInterface.Print("\nRequested server to leave current channel");
     }
 }
 void IRC::SendMessage()
 {
-    if (client.GetActiveChannel() == "")
+    if (client->GetActiveChannel() == "")
     {
         userInterface.Print("\nNo channel active, join one first");
         return;
     }
     std::string message = userInterface.GetMessageToSend();
-    if (client.SendMessage(message))
+    if (client->SendMessage(message))
     {
         userInterface.Print(std::string("\nSend message: " + message + " to server"));
     }

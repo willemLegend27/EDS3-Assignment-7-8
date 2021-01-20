@@ -91,32 +91,31 @@ GameStates Minigame::HandleLeaderboardState(GameEvents event)
     return currentState;
 }
 
-void HandleSetupEntry()
+void Minigame::HandleSetupEntry()
 {
     //ui.printGameMenu()
     //minigame.GetPlayerData(ui.GetPlayer)
-
 }
 
-void HandleSetupExit()
+void Minigame::HandleSetupExit()
 {
 }
 
-void HandlePlayingEntry()
+void Minigame::HandlePlayingEntry()
 {
     //minigame.StartGame(Player)
 }
 
-void HandlePlayingExit()
+void Minigame::HandlePlayingExit()
 {
 }
 
-void HandleLeaderboardEntry()
+void Minigame::HandleLeaderboardEntry()
 {
     //Minigame::LoadLeaderboard();
 }
 
-void HandleLeaderboardExit()
+void Minigame::HandleLeaderboardExit()
 {
     //ui.Clear()
 }

@@ -10,6 +10,40 @@ void UserInterface::Print(std::string message)
     std::cout << message;
 }
 
+bool UserInterface::IsNumber(const std::string &input)
+{
+    for (std::string::const_iterator i = input.begin(); i != input.end(); i++)
+    {
+        if (!std::isdigit(*i))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+void UserInterface::AskConnection(std::string *inputIP, std::string *inputPort)
+{
+    GetInputServerIP(inputIP);
+    GetInputServerPort(inputPort);
+}
+
+void UserInterface::GetInputServerIP(std::string *inputIP)
+{
+    std::cout << "\nInput IP of server to connect with: ";
+    std::getline(std::cin, *inputIP);
+    std::cout << "\nIP to connect with: " + *inputIP;
+}
+void UserInterface::GetInputServerPort(std::string *inputPort)
+{
+    std::cout << "\nInput port of server to connect with: ";
+    std::getline(std::cin, *inputPort);
+    if (IsNumber(*inputPort))
+    {
+        std::cout << "\nPort to connect with: " + *inputPort;
+    }
+}
+
 int UserInterface::GetChoice()
 {
     std::string input;
@@ -35,18 +69,6 @@ void UserInterface::PrintInterface()
     std::cout << "\n(4) Get all messages of channel";
     std::cout << "\n(5) Exit";
     std::cout << "\n================================";
-}
-
-bool UserInterface::IsNumber(const std::string &input)
-{
-    for (std::string::const_iterator i = input.begin(); i != input.end(); i++)
-    {
-        if (!std::isdigit(*i))
-        {
-            return false;
-        }
-    }
-    return true;
 }
 
 std::string UserInterface::GetJoinChannel()
@@ -97,6 +119,9 @@ void UserInterface::HandlePollEvents()
         break;
     case 4:
         PushEvent(Events::GET_CHANNEL_MESSAGES);
+        break;
+    case 5:
+        PushEvent(Events::Quit);
         break;
     default:
         break;

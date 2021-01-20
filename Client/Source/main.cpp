@@ -2,16 +2,28 @@
 #include "Client.hpp"
 #include "IRC.hpp"
 
+bool clientConnected = false;
+
 int main()
 {
 
     UserInterface userInterface = *new UserInterface();
-    Client client = *new Client("192.168.1.160", 5001);
-    IRC irc = *new IRC(userInterface, client);
+    std::string serverIP;
+    std::string serverPort;
 
-    while (true)
+    while (!clientConnected)
     {
-        irc.Run();
+        userInterface.AskConnection(&serverIP, &serverPort);
+        try
+        {
+            IRC irc = *new IRC(userInterface, serverIP, stoi(serverPort));
+            clientConnected = true;
+        }
+        catch (const std::exception &e)
+        {
+            std::cout << "\n"
+                      << e.what();
+        }
     }
     return 0;
 }

@@ -28,6 +28,12 @@ private:
     GameStates HandleSetupState(GameEvents event);
     GameStates HandlePlayingState(GameEvents event);
     GameStates HandleLeaderboardState(GameEvents event);
+    void HandleSetupEntry();
+    void HandleSetupExit();
+    void HandlePlayingEntry();
+    void HandlePlayingExit();
+    void HandleLeaderboardEntry();
+    void HandleLeaderboardExit();
 };
 
 #endif

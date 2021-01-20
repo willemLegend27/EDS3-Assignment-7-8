@@ -4,44 +4,52 @@
 
 MessageHandler::MessageHandler(Socket &socket) : socket(socket)
 {
-    //readThread = std::thread(&MessageHandler::Read, this);
+    readThread = std::thread(&MessageHandler::Read, this);
 }
 
 MessageHandler::~MessageHandler()
 {
 }
 
-nlohmann::json MessageHandler::CombineWithID(std::string currentMessage, int id)
+std::string MessageHandler::CombineWithID(std::string currentMessage, int id)
 {
-
-    nlohmann::json currentJson = nlohmann::json::parse(currentMessage);
-    nlohmann::json newJson;
-    newJson = {{"clientNr", id}, {"type", currentJson["type"].get<std::string>()}, {"value", currentJson["value"].get<std::string>()}};
-    return newJson.dump();
+    std::string appendID = ",\"id\": \"" + std::to_string(id) + "\" }";
+    currentMessage.replace(currentMessage.end() - 1, currentMessage.end(), appendID);
+    return currentMessage;
 }
 
-void MessageHandler::StackIncommingMessage(nlohmann::json messageObject)
+void MessageHandler::StackIncommingMessage(std::string messageObject)
 {
     {
         std::lock_guard<std::mutex> guard(mutex);
         IncommingMessages.push_back(messageObject);
     }
-
-    std::cout << IncommingMessages.at(0);
-    nlohmann::json obj = IncommingMessages.at(0);
-    nlohmann::json newOjb = obj["type"];
-    if (!newOjb.is_null())
-    {
-        std::string value = newOjb["type"].get<std::string>();
-    }
 }
 
-std::vector<nlohmann::json> MessageHandler::GetIncommingMessages()
+std::vector<std::string> MessageHandler::GetIncommingMessages()
 {
     {
         std::lock_guard<std::mutex> guard(mutex);
         return IncommingMessages;
     }
+}
+
+bool MessageHandler::EraseFromInCommingMessages(size_t pos)
+{
+    if (IncommingMessages.size() > pos)
+    {
+        {
+            std::lock_guard<std::mutex> guard(mutex);
+            IncommingMessages.erase(IncommingMessages.begin() + pos);
+            return true;
+        }
+    }
+    return false;
+}
+
+void MessageHandler::SendMessage(int clientFD, std::string protocolMessage)
+{
+    socket.SendMessage(clientFD, protocolMessage);
 }
 
 void MessageHandler::Read()
@@ -56,6 +64,7 @@ void MessageHandler::Read()
             if (FD_ISSET(this->socket.GetSocketFD(), &readFds))
             {
                 this->socket.AcceptConnection();
+                std::cout << "\nClient connected";
             }
             else
             {
@@ -66,12 +75,9 @@ void MessageHandler::Read()
                         std::string response;
                         bool success = this->socket.GetMessage(clientFD, response);
 
-                        if (!success || response == "disc")
+                        if (success)
                         {
-                            this->socket.Disconnect(clientFD);
-                        }
-                        else
-                        {
+                            std::cout << "\nReceived: " << response;
                             StackIncommingMessage(CombineWithID(response, clientFD));
                         }
                     }
