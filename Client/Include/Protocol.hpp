@@ -14,11 +14,11 @@ private:
 
 public:
     Protocol(const std::string serverIP, const int serverPort);
-    ~Protocol();
+    virtual ~Protocol()=default;
     bool SendMessage(std::string message);
     bool JoinChannel(std::string channelName);
     bool LeaveChannel(std::string channelName);
-    std::vector<std::string> GetChannelMessages();
+    const std::vector<std::string> GetChannelMessages();
 
 private:
     std::string FormatToJson(std::string type, std::string value);

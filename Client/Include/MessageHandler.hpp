@@ -20,9 +20,9 @@ private:
 
 public:
     MessageHandler(const std::string serverIP, const int serverPort);
-    ~MessageHandler();
+    virtual ~MessageHandler() = default;
     bool SendMessage(std::string protocolMessage);
-    std::vector<std::string> GetChannelMessages();
+    const std::vector<std::string> GetChannelMessages();
 
 private:
     void ReadMessage();

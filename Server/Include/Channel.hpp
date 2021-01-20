@@ -11,8 +11,8 @@ private:
 
 public:
     Channel();
-    ~Channel() = default;
-    std::string GetChannelName();
+    virtual ~Channel() = default;
+    std::string GetChannelName() const;
 
 private:
 };

@@ -32,7 +32,7 @@ bool Client::SendMessage(std::string message)
     return false;
 }
 
-std::string Client::GetActiveChannel()
+const std::string Client::GetActiveChannel()
 {
     return activeChannel;
 }

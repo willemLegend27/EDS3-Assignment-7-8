@@ -20,32 +20,6 @@ namespace JsonReader
         return true;
     }
 
-    inline bool ParseJson(const std::string &message, nlohmann::json &out)
-    {
-        // better json parse implementation that isolates the json from noise
-        auto begin = message.find('{');
-        auto end = message.find_last_of('}');
-
-        if (begin == std::string::npos || end == std::string::npos)
-        {
-            return false;
-        }
-        else
-        {
-            std::string jsonString = message.substr(begin, end - begin + 1);
-
-            try
-            {
-                out = nlohmann::json::parse(jsonString);
-                return true;
-            }
-            catch (const std::exception &e)
-            {
-                return false;
-            }
-        }
-    }
-
     template <typename T>
     bool GetValue(const nlohmann::json &input, const std::string &key, T &out)
     {
@@ -66,6 +40,5 @@ namespace JsonReader
         return true;
     }
 
-} // namespace JsonReader
-
+} 
 #endif

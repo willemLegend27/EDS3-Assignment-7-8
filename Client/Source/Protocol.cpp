@@ -4,9 +4,6 @@ Protocol::Protocol(const std::string serverIP, const int serverPort) : serverIP(
 {
     messageHandler = new MessageHandler(serverIP, serverPort);
 }
-Protocol::~Protocol()
-{
-}
 
 bool Protocol::JoinChannel(std::string channelName)
 {
@@ -35,7 +32,7 @@ bool Protocol::SendMessage(std::string message)
     return false;
 }
 
-std::vector<std::string> Protocol::GetChannelMessages()
+const std::vector<std::string> Protocol::GetChannelMessages()
 {
     std::vector<std::string> Messages = messageHandler->GetChannelMessages();
     std::vector<nlohmann::json> JsonMessages;

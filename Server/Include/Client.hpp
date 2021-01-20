@@ -11,9 +11,9 @@ private:
 
 public:
     Client(int clientFD);
-    ~Client() = default;
-    int GetClientFD();
-    std::string GetCurrentChannel();
+    virtual ~Client() = default;
+    int GetClientFD() const;
+    std::string GetCurrentChannel() const;
     void AssignChannel(std::string newChannel);
 
 private:

@@ -7,9 +7,6 @@
 Server::Server(MessageHandler &messageHandler) : messageHandler(messageHandler)
 {
 }
-Server::~Server()
-{
-}
 
 void Server::ReadSocketActivity()
 {
@@ -27,7 +24,7 @@ void Server::ReadSocketActivity()
                 {
                     Client client(stoi(id));
                     Clients.push_back(client);
-                    std::cout << "Added new client";
+                    std::cout << "\nAdded new client";
                 }
                 else
                 {
@@ -49,15 +46,13 @@ void Server::ReadSocketActivity()
                             bool containsValue = JsonReader::GetValue<std::string>(MessageToJson(), "value", value);
                             if (containsValue)
                             {
-                                std::cout << "\n"
-                                          << value;
                             }
                         }
                     }
                 }
             }
+            RemoveMessage();
         }
-        RemoveMessage();
     }
 }
 
@@ -65,11 +60,11 @@ void Server::RemoveMessage()
 {
     if (messageHandler.EraseFromInCommingMessages(0))
     {
-        std::cout << "Messages is taken care of";
+        std::cout << "\nMessages is taken care of";
     }
     else
     {
-        std::cout << "Message still exists in list";
+        std::cout << "\nMessage still exists in list";
     }
 }
 
@@ -88,7 +83,7 @@ void Server::ReadJoinChannel(int cliendID)
         {
             std::cout << "\nAssigning client to channel:" << value;
             FindClient(cliendID)->AssignChannel(value);
-            messageHandler.SendMessage(cliendID, "Joined succesfully");
+            messageHandler.SendMessage(cliendID, "Joined channel succesfully");
         }
     }
 }
@@ -128,7 +123,7 @@ nlohmann::json Server::MessageToJson()
     }
     catch (const std::exception &e)
     {
-        std::cerr << "could not parse the message, aborting...\n";
+        std::cerr << "\nCould not parse the message, aborting...";
     }
     return JsonMessage;
 }

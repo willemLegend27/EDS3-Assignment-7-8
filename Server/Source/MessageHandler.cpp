@@ -7,10 +7,6 @@ MessageHandler::MessageHandler(Socket &socket) : socket(socket)
     readThread = std::thread(&MessageHandler::Read, this);
 }
 
-MessageHandler::~MessageHandler()
-{
-}
-
 std::string MessageHandler::CombineWithID(std::string currentMessage, int id)
 {
     std::string appendID = ",\"id\": \"" + std::to_string(id) + "\" }";
@@ -26,12 +22,9 @@ void MessageHandler::StackIncommingMessage(std::string messageObject)
     }
 }
 
-std::vector<std::string> MessageHandler::GetIncommingMessages()
+const std::vector<std::string> MessageHandler::GetIncommingMessages()
 {
-    {
-        std::lock_guard<std::mutex> guard(mutex);
-        return IncommingMessages;
-    }
+    return IncommingMessages;
 }
 
 bool MessageHandler::EraseFromInCommingMessages(size_t pos)
@@ -41,8 +34,8 @@ bool MessageHandler::EraseFromInCommingMessages(size_t pos)
         {
             std::lock_guard<std::mutex> guard(mutex);
             IncommingMessages.erase(IncommingMessages.begin() + pos);
-            return true;
         }
+        return true;
     }
     return false;
 }

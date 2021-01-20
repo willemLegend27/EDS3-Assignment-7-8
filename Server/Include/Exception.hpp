@@ -8,8 +8,8 @@ class Exception : public std::exception
 {
 public:
     Exception(std::string msg, const char *file, int line);
-    ~Exception();
-    virtual const char *what() const noexcept;
+    virtual ~Exception()=default;
+    virtual const char *What() const noexcept;
 
 private:
     std::string msg, file;

@@ -20,10 +20,10 @@ private:
 
 public:
     MessageHandler(Socket &socket);
-    ~MessageHandler();
+    virtual ~MessageHandler() = default;
     void Read();
     void SendMessage(int clientFD, std::string protocolMessage);
-    std::vector<std::string> GetIncommingMessages();
+    const std::vector<std::string> GetIncommingMessages();
     bool EraseFromInCommingMessages(size_t pos);
 
 private:

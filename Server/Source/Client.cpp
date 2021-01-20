@@ -4,12 +4,12 @@ Client::Client(int clientFD) : clientFD(clientFD)
 {
 }
 
-int Client::GetClientFD()
+int Client::GetClientFD() const
 {
     return clientFD;
 }
 
-std::string Client::GetCurrentChannel()
+std::string Client::GetCurrentChannel() const
 {
     return currentChannel;
 }

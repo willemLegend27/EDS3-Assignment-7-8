@@ -17,7 +17,7 @@ private:
 
 public:
     Server(MessageHandler &messageHandler);
-    ~Server();
+    virtual ~Server() = default;
     void ReadSocketActivity();
 
 private:

@@ -7,11 +7,7 @@ Exception::Exception(std::string msg, const char *file, int line)
 {
 }
 
-Exception::~Exception()
-{
-}
-
-const char *Exception::Exception::what() const noexcept
+const char *Exception::Exception::What() const noexcept
 {
     std::ostringstream os;
     os << "[EXCEPTION] Threw an exception in file " << this->file << " at line " << this->line << '\n';

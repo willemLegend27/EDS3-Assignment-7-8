@@ -18,7 +18,7 @@ public:
     bool JoinChannel(std::string channelName);
     bool LeaveChannel();
     bool SendMessage(std::string message);
-    std::string GetActiveChannel();
+    const std::string GetActiveChannel();
 
 private:
 };

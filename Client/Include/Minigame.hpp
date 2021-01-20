@@ -14,7 +14,7 @@ private:
 
 public:
     Minigame();
-    ~Minigame();
+    virtual ~Minigame()=default;
     bool Start();
 
 private:
