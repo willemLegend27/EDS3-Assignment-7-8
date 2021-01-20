@@ -58,6 +58,7 @@ void MessageHandler::Read()
             {
                 this->socket.AcceptConnection();
                 std::cout << "\nClient connected";
+                std::cout << "\nClients connected: " << this->socket.GetConnections().size();
             }
             else
             {
