@@ -6,7 +6,7 @@ int main()
 {
 
     UserInterface userInterface = *new UserInterface();
-    Client client = *new Client();
+    Client client = *new Client("192.168.1.160", 5001);
     IRC irc = *new IRC(userInterface, client);
 
     while (true)

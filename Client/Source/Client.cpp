@@ -1,8 +1,8 @@
 #include "Client.hpp"
 
-Client::Client()
+Client::Client(const std::string serverIP, const int serverPort) : serverIP(serverIP), serverPort(serverPort)
 {
-    protocol = new Protocol();
+    protocol = new Protocol(serverIP, serverPort);
 }
 
 bool Client::JoinChannel(std::string channelName)

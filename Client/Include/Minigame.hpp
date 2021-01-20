@@ -22,7 +22,7 @@ private:
 
     Player GetPlayerData();
     bool StartGame(const Player &player);
-    bool Stop();
+    bool Close();
     bool AddScore(const Player &player, int score);
     bool LoadLeaderboard();
     GameStates HandleSetupState(GameEvents event);

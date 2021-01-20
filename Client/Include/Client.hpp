@@ -9,9 +9,11 @@ class Client
 private:
     Protocol *protocol;
     std::string activeChannel = "";
+    const std::string serverIP;
+    const int serverPort;
 
 public:
-    Client();
+    Client(const std::string serverIP, const int serverPort);
     virtual ~Client() = default;
     bool JoinChannel(std::string channelName);
     bool LeaveChannel();

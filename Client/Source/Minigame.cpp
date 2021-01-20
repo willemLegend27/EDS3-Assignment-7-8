@@ -4,6 +4,12 @@ Minigame::Minigame()
 {
 }
 
+bool Minigame::Close()
+{
+    //back to IRC UI
+    return false;
+}
+
 void Minigame::HandleEvent(GameEvents event)
 {
     switch (this->state)
@@ -27,14 +33,15 @@ GameStates Minigame::HandleSetupState(GameEvents event)
     GameStates currentState = GameStates::SETUP;
 
     switch (event)
-    //entry/ ui.printGameMenu(); minigame.getPlayerData(ui.getPlayer)
-    //events: SHUTDOWN, START_GAME, CHECK_LEADERBOARD
     {
-    case GameEvents::SETUP_GAME:
+    case GameEvents::START_GAME:
+        HandlePlayingEntry();
         break;
     case GameEvents::SHUTDOWN:
+        Minigame::Close();
         break;
     case GameEvents::CHECK_LEADERBOARD:
+        HandleLeaderboardEntry();
         break;
     default:
         break;
@@ -48,10 +55,19 @@ GameStates Minigame::HandlePlayingState(GameEvents event)
     GameStates currentState = GameStates::SETUP;
 
     switch (event)
-    //entry/ minigame.startGame(Player)
-    //internal MoveRight, MoveLeft
-    //events: SETUP_GAME, GAME_OVER
     {
+    case GameEvents::SETUP_GAME:
+        HandleSetupEntry();
+        break;
+    case GameEvents::GAME_OVER:
+        //minigame.AddScore; minigame.stop
+        HandleLeaderboardEntry();
+        break;
+    //INTERNAL EVENTS
+    case GameEvents::MoveLeft:
+        break;
+    case GameEvents::MoveRight:
+        break;
     default:
         break;
     }
@@ -64,13 +80,43 @@ GameStates Minigame::HandleLeaderboardState(GameEvents event)
     GameStates currentState = GameStates::SETUP;
 
     switch (event)
-    //entry/ minigame.LoadLeaderboard
-    //exit/ ui.ClearScreen()
-    //events: SETUP_GAME
     {
+    case GameEvents::SETUP_GAME:
+        HandleSetupEntry();
+        break;
     default:
         break;
     }
 
     return currentState;
+}
+
+void HandleSetupEntry()
+{
+    //ui.printGameMenu()
+    //minigame.GetPlayerData(ui.GetPlayer)
+
+}
+
+void HandleSetupExit()
+{
+}
+
+void HandlePlayingEntry()
+{
+    //minigame.StartGame(Player)
+}
+
+void HandlePlayingExit()
+{
+}
+
+void HandleLeaderboardEntry()
+{
+    //Minigame::LoadLeaderboard();
+}
+
+void HandleLeaderboardExit()
+{
+    //ui.Clear()
 }

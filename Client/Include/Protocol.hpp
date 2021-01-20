@@ -9,9 +9,11 @@ class Protocol
 {
 private:
     MessageHandler *messageHandler;
+    const std::string serverIP;
+    const int serverPort;
 
 public:
-    Protocol();
+    Protocol(const std::string serverIP, const int serverPort);
     ~Protocol();
     bool SendMessage(std::string message);
     bool JoinChannel(std::string channelName);

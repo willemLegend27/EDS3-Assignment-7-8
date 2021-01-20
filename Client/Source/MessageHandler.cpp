@@ -1,14 +1,12 @@
 #include "MessageHandler.hpp"
 
-MessageHandler::MessageHandler()
+MessageHandler::MessageHandler(const std::string serverIP, const int serverPort) : serverIP(serverIP), serverPort(serverPort)
 {
-    const std::string serverIP = "0.0.0.0";
-    const int serverPort = 5001;
     socket = new Socket(serverIP, serverPort);
     readThread = std::thread(&MessageHandler::ReadMessage, this);
 }
 
-MessageHandler::~MessageHandler()
+MessageHandler::~MessageHandler(){}
 {
 }
 

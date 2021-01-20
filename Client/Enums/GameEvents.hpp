@@ -8,7 +8,10 @@ enum GameEvents
     START_GAME,
     GAME_OVER,
     CHECK_LEADERBOARD,
-    SHUTDOWN
+    SHUTDOWN,
+
+    MoveLeft,
+    MoveRight
 };
 
 #endif

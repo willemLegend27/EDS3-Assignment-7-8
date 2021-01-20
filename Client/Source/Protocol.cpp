@@ -1,8 +1,8 @@
 #include "Protocol.hpp"
 
-Protocol::Protocol()
+Protocol::Protocol(const std::string serverIP, const int serverPort) : serverIP(serverIP), serverPort(serverPort)
 {
-    messageHandler = new MessageHandler();
+    messageHandler = new MessageHandler(serverIP, serverPort);
 }
 Protocol::~Protocol()
 {
