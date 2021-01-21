@@ -17,7 +17,7 @@ private:
 
 public:
     IRC(UserInterface &userInterface, const std::string serverIP, const int serverPort);
-    virtual ~IRC() = default;
+    virtual ~IRC();
     void Run();
 
 private:

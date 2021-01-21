@@ -5,6 +5,12 @@ Protocol::Protocol(const std::string serverIP, const int serverPort) : serverIP(
     messageHandler = new MessageHandler(serverIP, serverPort);
 }
 
+Protocol::~Protocol()
+{
+    delete messageHandler;
+    messageHandler = nullptr;
+}
+
 bool Protocol::JoinChannel(std::string channelName)
 {
     if (messageHandler->SendMessage(FormatToJson("join_channel", channelName)))

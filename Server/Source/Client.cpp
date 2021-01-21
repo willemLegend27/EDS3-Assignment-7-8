@@ -15,5 +15,5 @@ std::string Client::GetCurrentChannel() const
 }
 void Client::AssignChannel(std::string newChannel)
 {
-    currentChannel=newChannel;
+    currentChannel = newChannel;
 }

@@ -6,6 +6,12 @@ MessageHandler::MessageHandler(const std::string serverIP, const int serverPort)
     readThread = std::thread(&MessageHandler::ReadMessage, this);
 }
 
+MessageHandler::~MessageHandler()
+{
+    delete socket;
+    socket = nullptr;
+}
+
 bool MessageHandler::SendMessage(std::string protocolMessage)
 {
     if (socket->WriteMessage(protocolMessage))

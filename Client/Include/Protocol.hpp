@@ -14,7 +14,7 @@ private:
 
 public:
     Protocol(const std::string serverIP, const int serverPort);
-    virtual ~Protocol()=default;
+    virtual ~Protocol();
     bool SendMessage(std::string message);
     bool JoinChannel(std::string channelName);
     bool LeaveChannel(std::string channelName);

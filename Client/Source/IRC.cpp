@@ -9,6 +9,12 @@ IRC::IRC(UserInterface &userInterface, const std::string serverIP, const int ser
     }
 }
 
+IRC::~IRC()
+{
+    delete client;
+    client = nullptr;
+}
+
 void IRC::Run()
 {
     userInterface.PrintInterface();

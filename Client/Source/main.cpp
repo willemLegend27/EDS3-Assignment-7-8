@@ -7,7 +7,7 @@ bool clientConnected = false;
 int main()
 {
 
-    UserInterface userInterface = *new UserInterface();
+    UserInterface userInterface = UserInterface();
     std::string serverIP;
     std::string serverPort;
 
@@ -16,7 +16,7 @@ int main()
         userInterface.AskConnection(&serverIP, &serverPort);
         try
         {
-            IRC irc = *new IRC(userInterface, serverIP, stoi(serverPort));
+            IRC irc = IRC(userInterface, serverIP, stoi(serverPort));
             clientConnected = true;
         }
         catch (const std::exception &e)

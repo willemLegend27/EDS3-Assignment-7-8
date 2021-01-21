@@ -5,6 +5,12 @@ Client::Client(const std::string serverIP, const int serverPort) : serverIP(serv
     protocol = new Protocol(serverIP, serverPort);
 }
 
+Client::~Client()
+{
+    delete protocol;
+    protocol = nullptr;
+}
+
 bool Client::JoinChannel(std::string channelName)
 {
     if (protocol->JoinChannel(channelName))
